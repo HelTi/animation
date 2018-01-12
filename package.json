@@ -1,0 +1,23 @@
+{
+  "name": "animation",
+  "version": "1.0.0",
+  "description": "js css animation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HelTi/animation.git"
+  },
+  "keywords": [
+    "js",
+    "css3"
+  ],
+  "author": "helti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HelTi/animation/issues"
+  },
+  "homepage": "https://github.com/HelTi/animation#readme"
+}
