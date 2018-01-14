@@ -4,7 +4,9 @@
   "description": "js css animation",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "dev" : "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -19,5 +21,17 @@
   "bugs": {
     "url": "https://github.com/HelTi/animation/issues"
   },
-  "homepage": "https://github.com/HelTi/animation#readme"
+  "homepage": "https://github.com/HelTi/animation#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^2.30.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-middleware": "^2.0.4",
+    "webpack-hot-middleware": "^2.21.0",
+    "webpack-merge": "^4.1.1"
+  }
 }

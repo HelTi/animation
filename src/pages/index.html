@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>requestAnimationFrame</title>
+</head>
+<style>
+    .d {
+        height: 50px;
+    }
+
+    #app {
+        background-color: #dedede;
+    }
+
+    #app1 {
+        background: aqua;
+    }
+</style>
+<body>
+<div id="app" class="d"></div>
+<div class="d" id="app1"></div>
+</body>
+<script>
+    var start = null;
+    var ele = document.getElementById('app');
+
+    function step(timestap) {
+        if (!start) start = timestap;
+        var progress = timestap - start;
+        console.log('re', progress)
+        ele.style.width = Math.min(progress) + 'px';
+        ele.style.height = Math.min(progress) + 'px';
+        if (progress < 1000) {
+            window.requestAnimationFrame(step)
+        } else {
+            window.cancelAnimationFrame(step)
+        }
+    }
+
+    window.requestAnimationFrame(step);
+</script>
+<script>
+    var app1 = document.getElementById('app1');
+    var ele_w = 0;
+
+    function animate(w) {
+        app1.style.width = w + 'px';
+    }
+
+    var seti = setInterval(function () {
+        ele_w += 10;
+        console.log('st', 'ele_w')
+        if (ele_w < 1000) {
+            animate(ele_w);
+        } else {
+            clearInterval(seti)
+        }
+    }, 10);
+    seti();
+</script>
+</html>
