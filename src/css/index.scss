@@ -1,0 +1,27 @@
+@import "reset.css";
+
+html,body{
+  width: 100%;
+  overflow: hidden;
+}
+html{
+  position: relative;
+}
+header.nav{
+  ul{
+    height: 50px;
+    li{
+      float:left;
+      line-height: 50px;
+    }
+  }
+}
+.z-row{
+  height: 50px;
+}
+#animate1{
+  background-color: #dedede;
+}
+#animate2{
+  background-color: green;
+}

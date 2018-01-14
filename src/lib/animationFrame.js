@@ -12,3 +12,4 @@ if (window.requestAnimationFrame) {
         }, nextTime - now)
     }
 }
+export default animationFrame;
