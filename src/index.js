@@ -1,5 +1,6 @@
 import './css/index.scss'
 import animationFrame from './lib/animationFrame'
+import './js/test'
 
 let start = null;
 let animate_ele_1 = document.getElementById('animate1');
