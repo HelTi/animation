@@ -11,6 +11,8 @@ branches:
   - master
 install:
  - npm install
+ - npm install webpack -g
+ - npm install webpack-dev-server -g
 
 # 执行命令脚本
 script:
