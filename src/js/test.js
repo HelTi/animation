@@ -1,4 +1,8 @@
 import animate from '../lib/animate';
+/**
+ * TEST animation
+ */
+
 /*
 let progress = 0;
 let start_time = +new Date();
@@ -16,3 +20,7 @@ function step(v) {
 }
 
 window.requestAnimationFrame(step);*/
+
+animate(0, 100, 3000, 'BounceEaseInOut', function (value) {
+    console.log(value);
+});

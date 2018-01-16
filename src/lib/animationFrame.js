@@ -1,7 +1,8 @@
 let animationFrame = undefined;
-
+let cancelFrame = undefined;
 if (window.requestAnimationFrame) {
     animationFrame = window.requestAnimationFrame;
+    cancelFrame = window.cancelAnimationFrame;
 } else {
     let start = 0;
     animationFrame = function (callback) {
@@ -12,4 +13,5 @@ if (window.requestAnimationFrame) {
         }, nextTime - now)
     }
 }
-export default animationFrame;
+export default  animationFrame;
+export  {animationFrame,cancelFrame};
