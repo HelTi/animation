@@ -16,5 +16,5 @@ install:
 
 # 执行命令脚本
 script:
- - npm run dev
  - npm run build
+ - npm run dev
