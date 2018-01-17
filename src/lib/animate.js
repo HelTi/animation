@@ -9,10 +9,7 @@ import easings from './easings'
  * @param easing 缓动类型
  * @param callback 回调函数
  */
-let c = easings['QuadEaseIn'](5, 0, 100, 10);
-console.log(c);
 export default function (from, to, duration = 200, easing = 'Linear', callback) {
-    console.log(easings);
     if (!easings[easing]) {
         throw new Error(`NO ${easing} effect`);
     }
@@ -23,7 +20,6 @@ export default function (from, to, duration = 200, easing = 'Linear', callback) 
         let value = easings[easing](start, from, to - from, duration_time);
         start++;
         if (start <= duration_time) {
-            console.log('satrt', start);
             callback(value);
             animationFrame(step);
             frame = animationFrame(step);
