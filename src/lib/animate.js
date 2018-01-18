@@ -9,7 +9,9 @@ import easings from './easings'
  * @param easing 缓动类型
  * @param callback 回调函数
  */
-export default function (from, to, duration = 200, easing = 'Linear', callback) {
+//(from, to, duration = 200, easing = 'Linear', callback)
+
+export default function ({from=0,to=0,duration=200,easing='Linear'}, callback) {
     if (!easings[easing]) {
         throw new Error(`NO ${easing} effect`);
     }
