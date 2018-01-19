@@ -3,7 +3,7 @@ import _ from 'lodash'
 let Doc = document ? document : undefined;
 let Win = window ? window : undefined;
 
-var $dom = function (selector) {
+let $dom = function (selector) {
     return new $dom.prototype.init(selector);
 }
 
@@ -53,7 +53,6 @@ $dom.prototype = {
             } else {
                 let _this = this[i];
                 _.forEach(attr, (val, attr) => {
-                    console.log(attr, val);
                     _this.style.cssText += '' + attr + ':' + val + ';'
                 })
             }

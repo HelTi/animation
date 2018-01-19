@@ -11,25 +11,25 @@ import easings from './easings'
  */
 //(from, to, duration = 200, easing = 'Linear', callback)
 
-export default function ({from=0,to=0,duration=200,easing='Linear'}, callback) {
+export default function ({from = 0, to = 0, duration = 200, easing = 'Linear'}, callback) {
     if (!easings[easing]) {
         throw new Error(`NO ${easing} effect`);
     }
-    let start = 0, duration_time = duration,
-        frame = null;
-
-    function step() {
-        let value = easings[easing](start, from, to - from, duration_time);
-        start++;
-        if (start <= duration_time) {
-            callback(value);
+    let start_frame = null;
+        //frame = null;
+    let step = function (timestep) {
+        if (!start_frame) start_frame = timestep;
+        let value = easings[easing](timestep - start_frame, from, to - from, duration);
+        if (value <= (to - from)) {
             animationFrame(step);
-            frame = animationFrame(step);
+            callback(value);
+            //frame = animationFrame(step);
         } else {
+            console.log('end');
             cancelFrame(step);
+            return false;
         }
-    }
-
-    step();
-    return () => frame;
+    };
+    animationFrame(step);
+    //return () => frame;
 }
