@@ -1,3 +1,5 @@
+import {tween} from 'popmotion'
+
 let testStyle = document.createElement('div').style;
 
 let transformStyle = 'transform' in testStyle ? 'transform' : 'webkitTransform'
@@ -101,3 +103,9 @@ p.addEventListener('touchend', function (e) {
 function transform(dom, distance) {
   dom.style[transformStyle] = `translateX(${distance}px)`
 }
+
+document.getElementById('clickHandler').addEventListener('click',(e)=>{
+  const counter = document.querySelector('#conter');
+  const updateCounter = (v) => counter.innerHTML = v;
+  tween().start(updateCounter);
+},false);
