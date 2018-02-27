@@ -1,4 +1,4 @@
-import {tween} from 'popmotion'
+import {tween, styler, easing, keyframes} from 'popmotion'
 
 let testStyle = document.createElement('div').style;
 
@@ -104,8 +104,22 @@ function transform(dom, distance) {
   dom.style[transformStyle] = `translateX(${distance}px)`
 }
 
-document.getElementById('clickHandler').addEventListener('click',(e)=>{
+document.getElementById('clickHandler').addEventListener('click', (e) => {
   const counter = document.querySelector('#conter');
   const updateCounter = (v) => counter.innerHTML = v;
   tween().start(updateCounter);
-},false);
+}, false);
+
+const ball = document.getElementById('ball');
+
+document.getElementById('runBall').addEventListener('click', () => {
+  tween({to: 300, duration: 500})
+    .start(styler(ball).set('x'));
+})
+
+keyframes({
+  values: [0, 100, 200],
+  duration: 1000,
+  times: [0, 0.2, 1],
+  easings: [easing.linear, easing.cubicBezier(.17,.67,.83,.67)]
+}).start((v) => console.log(v));
