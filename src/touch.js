@@ -83,6 +83,7 @@ p.addEventListener('touchend', function (e) {
   /* console.log(touchStartPos)
    console.log(touchMovePos)
    console.log(touchEndPos)*/
+  p.style.transition='all .2s ease-in-out';
   if (Math.abs(move_distance) > win_width / 2) {
     if (move_distance > 0) {
       transform(p, win_width)

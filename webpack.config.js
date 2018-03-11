@@ -7,7 +7,9 @@ module.exports = {
   devtool: '#source-map',
   entry: {
     'index': './src/index.js',
-    'touch': './src/touch.js'
+    'touch': './src/touch.js',
+    'slide': './src/slide.js',
+
   },
   output: {
     filename: 'static/js/[name][hash].js',
@@ -70,6 +72,14 @@ module.exports = {
         "template":"./touch.html",
         "chuckName":"touch",
         "chunks" : ['vendors','touch']
+      }
+    ),
+    new HtmlWebpackPlugin(
+      {
+        "filename":"slide.html",
+        "template":"./slide.html",
+        "chuckName":"slide",
+        "chunks" : ['vendors','slide']
       }
     ),
 
