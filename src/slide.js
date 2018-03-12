@@ -38,6 +38,10 @@ let slideSwiper = function () {
   this.zeroSpeed = 0.001; // 当speed绝对值小于该值时认为速度为0 (可用于控制惯性滚动结束期的顺滑度)
   this.acceleration = 0; // 惯性滑动加速度;
   this.additionalX = 50;// 近似等于超出边界时最大可拖动距离(px);
+  this.reBoundingDuration = 360;
+  this.speed = 0; //回弹速度
+  this.sensitivity = 1000;//灵敏度(惯性滑动时的灵敏度,值越小，阻力越大),可近似认为速度减为零所需的时间(ms);
+  this.reBoundExponent = 10; // 惯性回弹指数(值越大，幅度越大，惯性回弹距离越长);
 };
 slideSwiper.prototype = {
   init: function () {
@@ -54,6 +58,7 @@ slideSwiper.prototype = {
   bindEvent: function () {
     this.touchStartHandle();
     this.touchMoveHandle();
+    this.touchEndHandle();
   },
   touchStartHandle: function () {
     let that = this;
@@ -93,18 +98,104 @@ slideSwiper.prototype = {
       }
       that.lastX = that.currentX;
       that.endMoveTime = e.timeStamp;
-      console.log(that.translateX)
+      console.log(that.translateX);
+      that.setAnimateStyle();
     }, false);
+  },
+  touchEndHandle: function () {
+    let that = this;
+    this.slide_content_dom.addEventListener('touchend', function (e) {
+      console.log('touchend');
+      let checkBound = that.checkIsNeedBoundX();
+      console.log('checkBound:', checkBound)
+      this.isTouching = false;
+      if (checkBound) {
+        cancelFrame(this.inertiaFrame);
+      } else {
+        let slienceTime = e.timeStamp - that.endMoveTime;
+        let timeStamp = that.endMoveTime - that.startMoveTime;
+        console.log('slienceTime:', slienceTime);
+        if (slienceTime > 100) return false;
+        that.speed = (that.lastX - that.startX);
+        that.acceleration = that.speed / that.sensitivity;
+        that.frameStartTime = new Date().getTime();
+        that.inertiaFrame = animationFrame(that.moveByInertia);
+      }
+    }, false)
+  },
+  moveByInertia: function () {
+    console.log('moveByInertia');
+    let that = this;
+    let isMoveLeft = this.computedIsMoveLeft();
+    let isMoveRight = this.computedIsMoveRight();
+    let canScrollX = this.computeCanScrollX();
+    that.frameEndTime = new Date().getTime();
+    that.frameTime = that.frameEndTime - that.frameStartTime;
+    debugger;
+    if (isMoveLeft) {
+      if (that.translateX <= -canScrollX) {
+        that.acceleration *= (that.reBoundExponent + Math.abs(that.translateX + canScrollX)) / that.reBoundExponent;
+        that.speed = Math.min(that.speed - that.acceleration * that.frameTime, 0)
+      } else {
+        that.speed = Math.min(that.speed - that.acceleration * that.frameTime, 0)
+      }
+    } else if (isMoveRight) {
+      if (that.translateX >= 0) {
+        that.acceleration *= (that.reBoundExponent + that.translateX) / that.reBoundExponent;
+        that.speed = Math.max(that.speed - that.acceleration * that.frameTime, 0)
+      } else {
+        that.speed = Math.max(that.speed - that.acceleration * that.frameTime, 0)
+      }
+    }
+    that.translateX += that.speed * that.frameTime / 2;
+    if (Math.abs(that.speed) <= that.zeroSpeed) {
+      that.checkIsNeedBoundX();
+      return;
+    }
+    that.frameStartTime = that.frameEndTime;
+    that.inertiaFrame = animationFrame(that.moveByInertia)
+  },
+  checkIsNeedBoundX: function () {
+    this.isBounding = false;
+    console.log('checkB_TX', this.translateX);
+    let canScrollX = this.computeCanScrollX();
+    console.log('cx', canScrollX)
+    if (this.translateX > 0) {
+      this.isBounding = true;
+      this.translateX = 0;
+    } else if (this.translateX < -canScrollX) {
+      this.isBounding = true;
+      this.translateX = -canScrollX;
+    }
+    return this.translateX === 0 || this.translateX === -canScrollX;
   },
   computeCanScrollX: function () {
     // 可视区与可滑动元素宽度差值;
     return this.slide_content_dom.offsetWidth - this.viewAreaWidth;
   },
-  computedIsMoveLeft() {
+  computedIsMoveLeft: function () {
     return this.currentX <= this.startX;
   },
-  slideTransform(distance) {
-    transform(this.slide_content_dom, distance)
+  computedIsMoveRight: function () {
+    return this.currentX >= this.startX;
+  },
+  computedTransitionDuration: function () {
+    if (this.isTouching || (!this.isBounding && !this.isTouching)) {
+      return '0';
+    }
+    if (this.isBounding && !this.isTouching) {
+      return this.reBoundingDuration;
+    }
+  },
+  computedTransitionTimingFunction: function () {
+    return this.isBounding ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'cubic-bezier(0.1, 0.57, 0.1, 1)'
+  },
+  setAnimateStyle: function () {
+    let ts_duration = this.computedTransitionDuration();
+    let ts_timing_function = this.computedTransitionTimingFunction();
+    this.slide_content_dom.style['transform'] = `translate3d(${this.translateX}px, 0px, 0px)`;
+    this.slide_content_dom.style['transitionDuration'] = `${ts_duration}ms`;
+    this.slide_content_dom.style['transitionTimingFunction'] = `${ts_timing_function}`;
   }
 };
 
