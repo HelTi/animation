@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Title</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        html,body{
+            height: 100%;
+            overflow: hidden;
+        }
+        #app{
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+        }
+        .wrapper .item{
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="wrapper">
+        <ul class="item">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+        <ul class="item">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+        <ul class="item">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="./src/pull_load.js"></script>
+</html>
