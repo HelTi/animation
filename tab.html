@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>tab</title>
+  <style>
+    body,html{
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow: hidden;
+      overflow-x: auto;
+    }
+
+    .tabs .tab-item {
+      padding: 3px 26px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      flex: 0 0 auto;
+      width: auto;
+      max-width: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap" id="app">
+    <div>
+      <h3>tab</h3>
+    </div>
+    <nav class="tabs-wrapper">
+      <ul class="tabs">
+        <li class="tab-item">全部</li>
+        <li class="tab-item">家用电器</li>
+        <li class="tab-item">水果</li>
+        <li class="tab-item">VIP专区</li>
+        <li class="tab-item">电子数码</li>
+      </ul>
+    </nav>
+    <section>
+      <input type="button" id="scroll" value="scroll"/>
+    </section>
+  </div>
+</body>
+
+</html>

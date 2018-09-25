@@ -9,7 +9,7 @@ module.exports = {
     'index': './src/index.js',
     'touch': './src/touch.js',
     'slide': './src/slide.js',
-
+    'tab': './src/tab.js'
   },
   output: {
     filename: 'static/js/[name][hash].js',
@@ -80,6 +80,14 @@ module.exports = {
         "template":"./slide.html",
         "chuckName":"slide",
         "chunks" : ['vendors','slide']
+      }
+    ),
+    new HtmlWebpackPlugin(
+      {
+        "filename":"tab.html",
+        "template":"./tab.html",
+        "chuckName":"tab",
+        "chunks" : ['vendors','tab']
       }
     ),
 
