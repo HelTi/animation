@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
+    "parabola-animation": "^1.0.2",
     "popmotion": "^8.1.11"
   }
 }
