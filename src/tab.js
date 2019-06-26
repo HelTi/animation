@@ -1,7 +1,7 @@
-console.log('tab');
+console.log('tab')
 import './css/tab.scss'
-import { animationFrame, cancelFrame } from "./lib/animationFrame";
-import { composite } from 'popmotion';
+import { animationFrame, cancelFrame } from './lib/animationFrame'
+import { composite } from 'popmotion'
 
 const tabs_ele = document.querySelector('.tabs')
 
@@ -19,13 +19,26 @@ for (let tab of tabs) {
     console.log('navScrollLeft', navScrollLeft)
     console.log('tabOffsetLeft', tabOffsetLeft)
 
-    scrollIntoView(tabs_ele, navScrollLeft, tabOffsetLeft - (navWidth - tabWidth) / 2)
+    scrollTo(tabs_ele, navScrollLeft, tabOffsetLeft - (navWidth - tabWidth) / 2)
   })
 }
 
-
 function scrollIntoView(el, from, to) {
   el.scrollLeft += to - from
+}
+
+function scrollTo(el, from, to) {
+  let count = 0
+  const frames = Math.round((0.3 * 1000) / 16)
+
+  const animate = () => {
+    el.scrollLeft += (to - from) / frames
+    if (++count < frames) {
+      animationFrame(animate)
+    }
+  }
+
+  animate()
 }
 document.getElementById('scroll').addEventListener('click', e => {
   tabs_ele.scrollLeft = 50
