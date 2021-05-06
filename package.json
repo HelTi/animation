@@ -41,7 +41,7 @@
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "parabola-animation": "^1.0.2",
     "popmotion": "^8.1.11"
   }
